@@ -1,7 +1,6 @@
 
 require 'csv'
 
-
 class ReportFormatter
   attr_reader :verified_emails
 
@@ -15,7 +14,6 @@ class ReportFormatter
   end
 
   private
-
   def csv file
     CSV.open(file, 'wb') do |writer|
       @verified_emails[0].each do |e|
@@ -117,5 +115,4 @@ class ReportFormatter
       </style>
     </head>"
   end
-
 end

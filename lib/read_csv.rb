@@ -1,8 +1,8 @@
 require 'csv'
 require 'pry'
 require_relative 'verify_emails.rb'
-class ReadCsv
 
+class ReadCsv
   def initialize filename
     @csv = CSV.new(File.read(filename), headers: true)
   end
@@ -13,5 +13,4 @@ class ReadCsv
       row['email']
     end
   end
-
 end

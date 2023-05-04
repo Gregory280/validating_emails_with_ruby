@@ -1,17 +1,13 @@
-require 'dotenv/load'
-Dotenv.load('.env')
 require 'net/http'
 require 'uri'
 require 'json'
 require_relative 'email_info.rb'
 
 class VerifyEmails
-  
-  
   API_KEY = ENV['BOUNCER_API_KEY']
   API_ENDPOINT = 'https://api.usebouncer.com/v1.1/email/verify?email='
-  attr_accessor :emails
   
+  attr_accessor :emails
   def initialize emails
       @emails = emails
   end
@@ -42,5 +38,4 @@ class VerifyEmails
       .parse(response.body)
       .slice("email", "status")
   end
-
 end
