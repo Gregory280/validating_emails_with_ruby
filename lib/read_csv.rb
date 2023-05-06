@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require_relative 'verify_emails.rb'
 
 class ReadCsv

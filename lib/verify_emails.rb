@@ -1,6 +1,4 @@
-require 'net/http'
-require 'uri'
-require 'json'
+%w{net/http uri json}.each { |e| require e }
 require_relative 'email_info.rb'
 
 class VerifyEmails
@@ -13,13 +11,11 @@ class VerifyEmails
   end
 
   def validate
-    verified_emails = Array.new
-    emails.each do |email|
+    emails.map do |email|
       response = request email
-      data = filter response
-      verified_emails << EmailInfo.new(data['email'], data['status'])
+      response.code == '200' ? data = filter(response) : next
+      EmailInfo.new(data['email'], data['status'])
     end
-    verified_emails
   end
 
   private
@@ -28,9 +24,7 @@ class VerifyEmails
     request = Net::HTTP::Get.new(uri)
     request["x-Api-Key"] = API_KEY
     req_options = { use_ssl: uri.scheme == "https" }
-    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      http.request(request)
-    end
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) { |http| http.request(request) }
   end
 
   def filter response

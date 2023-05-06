@@ -1,4 +1,3 @@
-
 class EmailInfo
   attr_reader :email, :status
 
